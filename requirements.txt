@@ -1,0 +1,6 @@
+bottle
+qrcode
+Pillow
+pypi
+requests
+

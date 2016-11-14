@@ -4,6 +4,8 @@ secret view webapp main file
 
 ##libraries
 import uuid
+import qrcode
+from PIL import Image
 import bottle
 from bottle import route, run, template, static_file
 
@@ -11,7 +13,7 @@ from bottle import route, run, template, static_file
 import config
 import app_utils
 import app_database
-
+import notifications
 
 @route('/')
 def home():
@@ -25,6 +27,8 @@ def admin(name='admin'):
     '''
     admin UI
     '''
+    img = qrcode.make('Some data here')
+    print(img)
     name = 'tdsdsest'
     return template('admin_template', name=name)
 
@@ -42,6 +46,9 @@ def secret(name):
     '''
     try to open secret
     '''
+
+    ##if true - notifications.http_notify
+
     return "Hello :" + name + ' ' + str(uuid.uuid4())
 
 
@@ -57,11 +64,8 @@ def static(page):
 
 @route('/help')
 def help():
+    #does not work
+    return static_file('help.html', root='/views/')
 
-    #return static_file('help.html', root='/views/')
 
-
-run(host='localhost',
-    port=config.general['port'],
-    debug=config.general['reloader'],
-    reloader=config.general['reloader'])
+run(host='localhost', port=config.general['port'], debug=config.general['reloader'], reloader=config.general['reloader'])
