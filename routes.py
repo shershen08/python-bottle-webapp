@@ -5,26 +5,22 @@ import controllers
 import shorten_url
 import config
 
-import uuid
+
 import bottle
 from bottle import route, template, static_file
-import qrcode
-from PIL import Image
 
 @route('/')
 def home():
     '''
     start page
     '''
-    return "input uuid "
+    return "input of the secret "
 
 @route('/admin')
 def admin(name='admin'):
     '''
     admin UI
     '''
-    img = qrcode.make('Some data here')
-    print(img)
     name = 'tdsdsest'
     return template('admin_template', name=name)
 
@@ -35,8 +31,8 @@ def create():
     adding new secret
     '''
     shorten_url.get_short_link(config.demo_link)
-    controllers.create.process_creation(config.demo_link)
-    return "Added new: " + str(uuid.uuid4()) + "  "
+    created_data = controllers.create.process_creation(config.demo_link)
+    return "Added new: " + created_data['uuid']
 
 
 @route('/secret/<name:re:[a-z]+>')

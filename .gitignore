@@ -1,3 +1,5 @@
 /__pycache__/
 to-write.txt
 open_api_key.py
+controllers/__pycache__/
+*.pyc

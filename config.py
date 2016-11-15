@@ -5,3 +5,4 @@ general = dict(
     reloader = True
 )
 demo_link = 'https://github.com/shershen08/es6-webpack-starter'
+database_connection = 'mongodb://localhost:27017/'

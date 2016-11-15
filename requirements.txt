@@ -3,4 +3,5 @@ qrcode
 Pillow
 pypi
 requests
-
+bcrypt
+pymongo
