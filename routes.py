@@ -32,11 +32,12 @@ def create():
     '''
     plugins.shorten_url.get_short_link(config.demo_link)
     created_data = controllers.create.process_creation(config.demo_link)
-    user_readable_id = app_utils.encrypt_id(created_data['uuid'])
+    print(created_data)
+    user_readable_id = app_utils.encrypt_id(created_data['uuid_created'])
     return "Added new: " + user_readable_id
 
 
-@route('/secret/<name:re:[a-z]+>')
+@route('/secret/<name:re:[a-z0-9]+>')
 def secret(name):
     '''
     try to open secret
@@ -46,13 +47,14 @@ def secret(name):
         item = controllers.read.process_reading(system_readable_id)
         if(item):
             print('record found')
+            return "Hello :" + item['text'] + ' \n from ' + item['date'] + ' \n by ' + item['author']
         else:
             print('record not found')
     else:
         print('record not found')
 
     ##if true - notifications.http_notify
-    return "Hello :" + name + ' '
+    
 
 
 

@@ -30,7 +30,7 @@ def process_creation(text):
 
     print('process_creation', img, uuid_created, db_id)
     return {
-        'db_id': uuid_created,
+        'db_id': db_id,
         'uuid_created' : uuid_created
     }
 
