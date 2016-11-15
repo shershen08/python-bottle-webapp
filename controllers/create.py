@@ -20,18 +20,18 @@ def process_creation(text):
     generate UUID, and qu code
     """
     if(len(text) < 255):
-        img = plugins.qr_code.make_img(text)
-        print(img)
+        imgqr = plugins.qr_code.make_img(text)
 
     #uuid
     uuid_created = str(uuid.uuid4())
 
     db_id = db_insert(text, uuid_created)
 
-    print('process_creation', img, uuid_created, db_id)
+    print('process_creation', uuid_created, db_id)
     return {
         'db_id': db_id,
-        'uuid_created' : uuid_created
+        'uuid_created' : uuid_created,
+        'qrbase64': imgqr 
     }
 
 def db_insert(text, secret_id):

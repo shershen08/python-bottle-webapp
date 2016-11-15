@@ -32,9 +32,9 @@ def create():
     '''
     plugins.shorten_url.get_short_link(config.demo_link)
     created_data = controllers.create.process_creation(config.demo_link)
-    print(created_data)
-    user_readable_id = app_utils.encrypt_id(created_data['uuid_created'])
-    return "Added new: " + user_readable_id
+    user_readable_id = app_utils.encrypt_id(created_data['db_id'])
+    #return "Added new: " + user_readable_id
+    return template('create_template', qrbase64=created_data['qrbase64'], link=user_readable_id)
 
 
 @route('/secret/<name:re:[a-z0-9]+>')
