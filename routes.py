@@ -2,9 +2,9 @@
 backend routes configs
 """
 import controllers
-import shorten_url
+import plugins
 import config
-
+import app_utils
 
 import bottle
 from bottle import route, template, static_file
@@ -30,9 +30,10 @@ def create():
     '''
     adding new secret
     '''
-    shorten_url.get_short_link(config.demo_link)
+    plugins.shorten_url.get_short_link(config.demo_link)
     created_data = controllers.create.process_creation(config.demo_link)
-    return "Added new: " + created_data['uuid']
+    user_readable_id = app_utils.encrypt_id(created_data['uuid'])
+    return "Added new: " + user_readable_id
 
 
 @route('/secret/<name:re:[a-z]+>')
@@ -40,10 +41,18 @@ def secret(name):
     '''
     try to open secret
     '''
+    system_readable_id = app_utils.decrypt_id(name)
+    if(system_readable_id != None):
+        item = controllers.read.process_reading(system_readable_id)
+        if(item):
+            print('record found')
+        else:
+            print('record not found')
+    else:
+        print('record not found')
 
     ##if true - notifications.http_notify
-
-    return "Hello :" + name + ' ' + str(uuid.uuid4())
+    return "Hello :" + name + ' '
 
 
 
