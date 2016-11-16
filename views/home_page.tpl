@@ -1,6 +1,3 @@
 % include('partials/header.tpl')
-<h1>Admin</h1>
-test
-<br>
-{{name}}
+home
 % include('partials/footer.tpl')

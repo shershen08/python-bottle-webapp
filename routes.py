@@ -14,7 +14,7 @@ def home():
     '''
     start page
     '''
-    return "input of the secret "
+    return template('home_page')
 
 @route('/admin')
 def admin(name='admin'):
@@ -55,7 +55,22 @@ def secret(name):
 
     ##if true - notifications.http_notify
     
+'''
+todo:
+  try:
+            data = request.json()
+        except:
+            raise ValueError
 
+        if data is None:
+            raise 
+            
+            ....
+            except ValueError:
+        # if bad request data, return 400 Bad Request
+        response.status = 400
+        return
+'''
 
 
 @route('/static/<page:re:[a-z]+>')
@@ -63,12 +78,7 @@ def static(page):
     '''
     display all static pages
     '''
-    page_title = 'tdsdsest'
-    return "show " + page
-    #return template('static_page', page_title=page_title)
-
-@route('/help')
-def help():
-    #does not work
-    return static_file('help.html', root='/views/')
-
+    #page_data = controllers.static_page.read(page)
+    title = 'tdsdsest'
+    text = 'tdsdsest tdsdsest tdsdsesttdsdsest tdsdsest tdsdsest'
+    return template('static_page', page_title=title, page_text=text)
