@@ -2,13 +2,11 @@
 read data for static page
 """
 import config
-from bson.objectid import ObjectId
-import pymongo
-from pymongo import MongoClient
+from .database import *
 
-##db connection
-client = MongoClient(config.database_connection)
-db = client['local']
+from bson.objectid import ObjectId
+
+db = database_connect()
 pages = db.pages
 
 def read(page_name):

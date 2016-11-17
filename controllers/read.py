@@ -1,14 +1,11 @@
 """
 read secret route function
 """
-import config
-from bson.objectid import ObjectId
-import pymongo
-from pymongo import MongoClient
 
-##db connection
-client = MongoClient(config.database_connection)
-db = client['local']
+from .database import *
+from bson.objectid import ObjectId
+
+db = database_connect()
 secrets = db.secrets
 
 def process_reading(id):

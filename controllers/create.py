@@ -4,15 +4,9 @@ create secret route function
 import uuid
 import datetime
 import plugins
+from .database import *
 
-import pymongo
-from pymongo import MongoClient
-
-import config
-
-##init db
-client = MongoClient(config.database_connection)
-db = client['local']
+db = database_connect()
 secrets = db.secrets
 
 def process_creation(text):

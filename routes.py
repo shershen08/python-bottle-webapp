@@ -7,16 +7,16 @@ import config
 import app_utils
 
 import bottle
-from bottle import route, template, static_file
+from bottle import route, template, static_file, get
 
-@route('/')
+@get('/')
 def home():
     '''
     start page
     '''
     return template('home_page')
 
-@route('/admin')
+@get('/admin')
 def admin(name='admin'):
     '''
     admin UI
@@ -25,7 +25,7 @@ def admin(name='admin'):
     return template('admin_template', name=name)
 
 
-@route('/create')
+@get('/create')
 def create():
     '''
     adding new secret
@@ -37,7 +37,7 @@ def create():
     return template('create_template', qrbase64=created_data['qrbase64'], link=user_readable_id)
 
 
-@route('/secret/<name:re:[a-z0-9]+>')
+@get('/secret/<name:re:[a-z0-9]+>')
 def secret(name):
     '''
     try to open secret
@@ -54,27 +54,9 @@ def secret(name):
         print('record not found')
 
     ##if true - notifications.http_notify
-    
-'''
-todo:
-  try:
-            data = request.json()
-        except:
-            raise ValueError
 
-        if data is None:
-            raise 
-            
-            ....
-            except ValueError:
-        # if bad request data, return 400 Bad Request
-        response.status = 400
-        return
-'''
-
-
-@route('/static/<page:re:[a-z]+>')
-def static(page):
+@get('/static/<page:re:[a-z]+>')
+def static_page(page):
     '''
     display all static pages
     '''
@@ -82,3 +64,9 @@ def static(page):
     title = 'tdsdsest'
     text = 'tdsdsest tdsdsest tdsdsesttdsdsest tdsdsest tdsdsest'
     return template('static_page', page_title=title, page_text=text)
+
+
+@get('/assets/<filepath:path>')
+def static(filepath):
+    print(filepath)
+    return static_file(filepath, root='assets')
