@@ -7,13 +7,20 @@ import config
 import app_utils
 
 import bottle
-from bottle import route, template, static_file, get
+from bottle import request, route, template, static_file, get
 
 @get('/')
 def home():
     '''
     start page
     '''
+    #working with session
+    s = bottle.request.environ.get('beaker.session')
+    s['test'] = 'start page visited'
+    s.save()
+
+    print(s)
+    
     return template('home_page')
 
 @get('/admin')
@@ -21,6 +28,13 @@ def admin(name='admin'):
     '''
     admin UI
     '''
+    #working with session
+    s = bottle.request.environ.get('beaker.session')
+    s['test'] = 'admin visited'
+    s.save()
+
+    print(s)
+
     name = 'tdsdsest'
     return template('admin_template', name=name)
 
@@ -65,7 +79,7 @@ def static_page(page):
     text = 'tdsdsest tdsdsest tdsdsesttdsdsest tdsdsest tdsdsest'
     return template('static_page', page_title=title, page_text=text)
 
-
+# handling static files
 @get('/assets/<filepath:path>')
 def static(filepath):
     print(filepath)

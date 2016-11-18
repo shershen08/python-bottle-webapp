@@ -1,0 +1,13 @@
+{
+    "lines": {
+        "app_footer": "Sharesecretappdemo",
+        "app_name": "Share secret app",
+        "app_html_title": "Share secret app"
+    },
+    "top_menu": {
+        "create": "Create"
+    },
+    "bottom_menu": {
+        "about": "About"
+    }
+}
