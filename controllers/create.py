@@ -6,9 +6,6 @@ import datetime
 import plugins
 from .database import *
 
-db = database_connect()
-secrets = db.secrets
-
 def process_creation(text):
     """
     generate UUID, and qu code
@@ -25,13 +22,13 @@ def process_creation(text):
     return {
         'db_id': db_id,
         'uuid_created' : uuid_created,
-        'qrbase64': imgqr 
+        'qrbase64': imgqr
     }
 
 def db_insert(text, secret_id):
     query = {"author": "Mike",
-            "text": text,
-            "sid": secret_id,
-            "date": datetime.datetime.utcnow()}
-    post_id = secrets.insert_one(query).inserted_id
+             "text": text,
+             "sid": secret_id,
+             "date": datetime.datetime.utcnow()}
+    post_id = dbService.create_new(query)
     return post_id
