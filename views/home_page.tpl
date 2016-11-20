@@ -1,3 +1,5 @@
 % include('partials/header.tpl')
-home
+<div class="container">
+    home
+</div>
 % include('partials/footer.tpl')

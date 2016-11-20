@@ -1,4 +1,6 @@
 % include('partials/header.tpl')
-<h3>{{page_title}}</h3>
-<p>{{page_text}}</p>
+<div class="container">
+    <h3>{{page_title}}</h3>
+    <p>{{page_text}}</p>
+</div>
 % include('partials/footer.tpl')

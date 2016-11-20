@@ -1,7 +1,7 @@
 % include('partials/header.tpl')
-some details
+<div class="container">
 <br>
-{{link}}
 <br>
-<img src="data:image/jpeg;base64,{{qrbase64}}" width="200" height="200">
+create static page
+</div> 
 % include('partials/footer.tpl')

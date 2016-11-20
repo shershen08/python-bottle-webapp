@@ -1,13 +1,13 @@
 {
     "lines": {
         "app_footer": "Sharesecretappdemo",
-        "app_name": "Share secret app",
-        "app_html_title": "Share secret app"
+        "app_name": "Share secret ",
+        "app_html_title": "Share secret"
     },
     "top_menu": {
-        "create": "Create"
+        "create": "Добавить"
     },
     "bottom_menu": {
-        "about": "About"
+        "about": "О проекте"
     }
 }
