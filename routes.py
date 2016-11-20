@@ -7,11 +7,13 @@ import config
 import app_utils
 
 import bottle
-from bottle import request, route, template, static_file, get, post
+from bottle import Bottle, request, route, template, static_file, get, post
 
 ########################
 #       main app pages
 ########################
+
+app = Bottle()
 
 @get('/')
 def home():
@@ -22,8 +24,7 @@ def home():
     s = bottle.request.environ.get('beaker.session')
     s['test'] = 'start page visited'
     s.save()
-
-    print(s)
+    controllers.database.flush_expired_items()
     
     return template('home_page')
 
@@ -34,26 +35,15 @@ def create():
     '''
 
     #return "Added new: " + user_readable_id
-    #return template('create_template', qrbase64=created_data['qrbase64'], link=user_readable_id)
+    return template('create_template')
 
 
-@get('/secret/<name:re:[a-z0-9]+>')
-def secret(name):
+@get('/secret')
+def secret():
     '''
     display page to open secret
     '''
-    system_readable_id = app_utils.decrypt_id(name)
-    if(system_readable_id != None):
-        item = controllers.read.process_reading(system_readable_id)
-        if(item):
-            print('record found')
-            return "Hello :" + item['text'] + ' \n from ' + item['date'] + ' \n by ' + item['author']
-        else:
-            print('record not found')
-    else:
-        print('record not found')
-
-    ##if true - notifications.http_notify
+    return template('secret_view')
 
 @get('/static/<page:re:[a-z]+>')
 def static_page(page):
@@ -76,19 +66,31 @@ def api_create():
     '''
     adding new secret request
     '''
-    
+    plugins.shorten_url.get_short_link(config.demo_link)
+    created_data = controllers.create.process_creation(config.demo_link)
+    user_readable_id = app_utils.encrypt_id(created_data['db_id'])
+
+    ##<img src="data:image/jpeg;base64,{{qrbase64}}" width="200" height="200">
+    ##, qrbase64=created_data['qrbase64'], link=user_readable_id
     # return {
     #     JSON object
     # }
 
-@post('/api/read')
-def api_read():
+@post('/api/read/<name:re:[a-z0-9]+>')
+def api_read(name):
     '''
     read secret request
     '''
-    plugins.shorten_url.get_short_link(config.demo_link)
-    created_data = controllers.create.process_creation(config.demo_link)
-    user_readable_id = app_utils.encrypt_id(created_data['db_id'])
+    system_readable_id = app_utils.decrypt_id(name)
+    if(system_readable_id != None):
+        item = controllers.read.process_reading(system_readable_id)
+        if(item):
+            print('record found')
+            return "Hello :" + item['text'] + ' \n from ' + item['date'] + ' \n by ' + item['author']
+        else:
+            print('record not found')
+    else:
+        print('record not found')
     # return {
     #     JSON object
     # }
