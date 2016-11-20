@@ -1,6 +1,8 @@
 """
 handles db conection
 """
+import datetime
+import time
 import config
 import pymongo
 from pymongo import MongoClient
@@ -8,43 +10,52 @@ from bson.objectid import ObjectId
 
 # db connection
 
-class dbService:
-    
-    def __init__(self):
-        self.connection = database_connect()
-        self.data = []
-    
-    def database_connect():
-        """
-        setup
-        """
-        try:
-            client = MongoClient(config.database_connection)
-            db = client['local']
 
-        except ValueError:
-        # if no db conection
-            response_status = 400
-            print('no db conection')
-    
-    return db
+try:
+    client = MongoClient(config.database_connection)
+    connection = client['local']
+#exception BottleException[s
 
-    def get_item_by_id(id):
-        """
-        single item search
-        """
-        secrets = self.connection.secrets
-        item = secrets.find_one({"_id": ObjectId(id)})
-        return item
+except ValueError:
+# if no db conection
+    #bottle.request
+    response_status = 400
+    print('no db conection')
+    exit()
 
-    def create_new(id):
-        secrets = self.connection.secrets
-        res = secrets.insert_one(query).inserted_id
-        return res
+def get_secret_item_by_id(id):
+    """
+    single item search
+    """
+    secrets = connection.secrets
+    item = secrets.find_one({"_id": ObjectId(id)})
+    return item
 
-    def remove_item_by_id(id):
-        secrets = self.connection.secrets
-        secrets.delete_one({"_id":ObjectId(id)})
+def create_new_secret(query):
+
+    secrets = connection.secrets
+    res = secrets.insert_one(query).inserted_id
+    return res
+
+def remove_secret_item_by_id(id):
+    secrets = connection.secrets
+    secrets.delete_one({"_id":ObjectId(id)})
+
+def get_page_item_by_id(page_name):
+    pages = connection.pages
+    page = pages.find_one({"name": page_name})
+    return page
+
+def flush_expired_items():
+    secrets = connection.secrets
+    diff = 3600 * 1
+    d = datetime.date.fromtimestamp(time.time() - diff)
+    print(d)
+    #secrets.remove({"date": {"$lt": d}}):
+    return 42
+
+def close():
+    connection.close()
 
     #except:
     #    raise ValueError

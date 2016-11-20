@@ -6,7 +6,7 @@ from .database import *
 
 def process_reading(id):
 
-    dbService.get_item_by_id(id)
+    database.get_secret_item_by_id(id)
     result = secrets
     print(result)
     if(result != None and result['sid'] != ''):
@@ -17,5 +17,5 @@ def process_reading(id):
 
 def remove_selected(id):
     
-    dbService.remove_item_by_id(id)
+    database.remove_secret_item_by_id(id)
     pass
