@@ -30,5 +30,5 @@ def db_insert(text, secret_id):
              "text": text,
              "sid": secret_id,
              "date": datetime.datetime.utcnow()}
-    post_id = dbService.create_new(query)
+    post_id = database.create_new_secret(query)
     return post_id

@@ -1,7 +1,6 @@
 """
 app-wide utils
 """
-import bcrypt
 import api_key
 import json
 
@@ -13,14 +12,10 @@ def encrypt_id(db_id):
 def decrypt_id(url_id):
     return url_id
 
-def crypt_string(str_text):
-    #http://www.mindrot.org/projects/py-bcrypt/
-    hashed = bcrypt.hashpw(password, bcrypt.gensalt())
-    print(hashed)
-
-
-#language file loading
 def load_language(ll):
+    """
+    language file loading
+    """
     lang_locale = 'en' if (ll == '') else ll
     lang_file_path = "./i18n/" + lang_locale + ".json"
     f = open(lang_file_path, "rb")
