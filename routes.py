@@ -13,7 +13,7 @@ from bottle import Bottle, request, route, template, static_file, get, post
 #       main app pages
 ########################
 
-app = Bottle()
+app = bottle.default_app()
 
 @get('/')
 def home():

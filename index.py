@@ -4,7 +4,6 @@ secret view webapp main file
 
 ##libraries
 import bottle
-from bottle import run
 from beaker.middleware import SessionMiddleware
 
 import cherrypy
@@ -15,10 +14,11 @@ import config
 import app_utils
 import routes
 
-app = routes.app
+__app__ = routes.app
+
 
 app_utils.load_language('fr')
-app = SessionMiddleware(app, config.session_opts)
+app = SessionMiddleware(__app__, config.session_opts)
 
 ## run bottle
 # run(app=app,
@@ -28,10 +28,9 @@ app = SessionMiddleware(app, config.session_opts)
 #     debug=config.general['reloader'],
 #     reloader=config.general['reloader'])
 
-
 application = wsgigzip.GzipMiddleware(app)
 
-cherrypy.config.update({'server.socket_host': "0.0.0.0",
-                        'server.socket_port': 8080})
+cherrypy.config.update({'server.socket_host': 'localhost',
+                        'server.socket_port': 7070})
 cherrypy.tree.graft(application, "/")
 cherrypy.engine.start()
