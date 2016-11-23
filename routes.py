@@ -13,6 +13,10 @@ from bottle import Bottle, request, route, template, static_file, get, post
 #       main app pages
 ########################
 
+
+##load translations
+translations = app_utils.load_language('ru')
+
 app = bottle.default_app()
 
 @get('/')
@@ -25,8 +29,8 @@ def home():
     s['test'] = 'start page visited'
     s.save()
     controllers.database.flush_expired_items()
-    
-    return template('home_page')
+
+    return template('home_page', i18n=translations)
 
 @get('/create')
 def create():
@@ -35,7 +39,7 @@ def create():
     '''
 
     #return "Added new: " + user_readable_id
-    return template('create_template')
+    return template('create_template', i18n=translations)
 
 
 @get('/secret')
@@ -53,7 +57,7 @@ def static_page(page):
     #page_data = controllers.static_page.read(page)
     title = 'tdsdsest'
     text = 'tdsdsest tdsdsest tdsdsesttdsdsest tdsdsest tdsdsest'
-    return template('static_page', page_title=title, page_text=text)
+    return template('static_page', page_title=title, page_text=text, i18n=translations)
 
 
 
@@ -102,23 +106,4 @@ def api_read(name):
 
 @get('/assets/<filepath:path>')
 def static(filepath):
-    print(filepath)
     return static_file(filepath, root='assets')
-
-
-## todo, maybe for later
-
-# @get('/admin')
-# def admin(name='admin'):
-#     '''
-#     admin UI
-#     '''
-#     #working with session
-#     s = bottle.request.environ.get('beaker.session')
-#     s['test'] = 'admin visited'
-#     s.save()
-
-#     print(s)
-
-#     name = 'tdsdsest'
-#     return template('admin_template', name=name)

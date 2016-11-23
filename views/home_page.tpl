@@ -14,4 +14,4 @@
     </div>
   </div>
 </div>
-% include('partials/footer.tpl')
+#% include('partials/footer.tpl')

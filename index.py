@@ -16,8 +16,6 @@ import routes
 
 __app__ = routes.app
 
-
-app_utils.load_language('fr')
 app = SessionMiddleware(__app__, config.session_opts)
 
 ## run bottle
@@ -31,6 +29,6 @@ app = SessionMiddleware(__app__, config.session_opts)
 application = wsgigzip.GzipMiddleware(app)
 
 cherrypy.config.update({'server.socket_host': 'localhost',
-                        'server.socket_port': 7070})
+                        'server.socket_port': config.general['port']})
 cherrypy.tree.graft(application, "/")
 cherrypy.engine.start()

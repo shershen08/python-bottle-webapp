@@ -50,7 +50,6 @@ def flush_expired_items():
     secrets = connection.secrets
     diff = 3600 * 1
     d = datetime.date.fromtimestamp(time.time() - diff)
-    print(d)
     #secrets.remove({"date": {"$lt": d}}):
     return 42
 

@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="container">
-    <p class="text-muted"></p>
+    <p class="text-muted">{{i18['app_footer']}}</p>
     </div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

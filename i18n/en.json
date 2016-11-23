@@ -1,13 +1,27 @@
-{
-    "lines": {
-        "app_footer": "Share secret app demo",
-        "app_name": "Share secret app",
-        "app_html_title": "Share secret app"
+{   
+    "footer" : {
+        "app_footer": "Поделиться секретной информацией, 2016",
+        "footer_menu": {
+            "about": "О проекте"
+        }
     },
-    "top_menu": {
-        "create": "Create"
+    "header": {
+        "app_name": "Поделиться секретной информацией",
+        "app_html_title": "Share secret",
+        "header_menu": {
+            "create": "Добавить",
+            "view":"Открыть",
+            "about":"О проекте"
+        }
     },
-    "bottom_menu": {
-        "about": "About"
-    }
+    "pages": {
+        "create": {
+            "title":"Добавить",
+            "text":" Добавить Добавить Добавить"
+        },
+        "view": {
+            "title":"Добавить",
+            "text":" Добавить Добавить Добавить"
+        }
+    } 
 }
