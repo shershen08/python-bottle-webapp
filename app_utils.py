@@ -23,5 +23,4 @@ def load_language(ll):
     f.close()
     decoded_data = data.decode('utf-8')
     json_obj = json.loads(str(decoded_data))
-    #print(json_obj)
     return json_obj
