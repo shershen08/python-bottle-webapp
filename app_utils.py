@@ -24,3 +24,9 @@ def load_language(ll):
     decoded_data = data.decode('utf-8')
     json_obj = json.loads(str(decoded_data))
     return json_obj
+
+def logger(func):
+    def with_logging(*args, **kwargs):
+        print(func.__name__ + " was called ", func.__doc__)
+        return func(*args, **kwargs)
+    return with_logging
